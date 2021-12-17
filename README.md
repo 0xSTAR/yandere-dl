@@ -62,10 +62,10 @@ yandere-dl will ask for these 4 specificities:
 - 4. Pages ( any number >= (greater than or equal to) 1 )
 
 Here is an example of a simple query to yandere-dl:
-Search: girls_und_panzer+seifuku
-Rating:
-Order:
-Pages:
+- Search: girls_und_panzer+seifuku
+- Rating:
+- Order:
+- Pages:
 
 EXPLAINING what this query would do:
 
