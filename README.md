@@ -5,7 +5,7 @@ yandere image board downloader that provides you the highest quality sauce byte 
 
 For Windows users, the easiest way is to download the [latest executable file from the Releases tab](https://github.com/0xSTAR/yandere-dl/releases/download/v1.0.0/yandere-dl.exe). From there, move the executable file into any directory of your choosing (it is recommended to create a dedicated folder for yandere-dl). Then, double click the executable to open it, and a prompt will appear. Next you must provide a search term, a rating, the order, and the amount of pages you would like (each page is ~40 images). You can leave these blank to have them at their default values. This goes without saying, but press enter afterwards. 
 
-To actually use this, make sure to read below, and yes, [take this shortcut to get there faster]() because the next section is explaining how to use it from source.
+To actually use this, make sure to read below, and yes, [take this shortcut to get there faster](https://github.com/0xSTAR/yandere-dl#actual-usage-of-yandere-dl) because the next section is explaining how to use it from source.
 
 # FROM SOURCE
 
