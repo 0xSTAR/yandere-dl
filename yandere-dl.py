@@ -11,7 +11,7 @@ def ins(mod):
 try:import requests
 except ModuleNotFoundError:ins('requests');import requests
 try:from bs4 import BeautifulSoup
-except ModuleNotFoundError:ins('beautifulsoup4')
+except ModuleNotFoundError:ins('beautifulsoup4');from bs4 import BeautifulSoup
 
 image_links = []
 file_name = ''
