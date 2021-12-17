@@ -26,18 +26,27 @@ If you do not know how to do these things, it is expected of you to already know
 Once you are there, you can do one of two things . . .
 
 Run the 'build.py' script to create a binary for your operating system like so...
+
 On Windows . . .
-> python build.py
-On Mac or Linux . . . (interpreter of python may change depending on your choice)
-> python3 build.py
+
+  python build.py
+  
+On Mac or Linux . . . (interpreter of python may change depending on your environment variable)
+
+  python3 build.py
+  
 ^^^^^^^^^^^^^^^^^^ Just make sure that you are using an interpreter of Python 3.6 or newer
 
 OR ... !
 
 Run yandere-dl straight from the 'yandere-dl.py' file like so . . .
-> python yandere-dl.py
+
+python yandere-dl.py
+
 or for Linux users. . .
-> python3 yandere-dl.py
+
+python3 yandere-dl.py
+
 ^^^^^^^^^^^^^^^^^^ Just make sure that you are using an interpreter of Python 3.6 or newer
 
 # ACTUAL USAGE OF YANDERE-DL
