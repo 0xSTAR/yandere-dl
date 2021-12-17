@@ -56,10 +56,10 @@ This script downloads images specifically available on the [yande.re image board
 So, all tags used are specific to that website. I suggest you visit it and get used to the tags and conventions if you are not already (even though this script is most likely to be used by people who already use yande.re and want an easier way of saving the images offline)
 
 yandere-dl will ask for these 4 specificities:
-1. Search term or better known as 'tag(s)'
-2. Rating (safe, explicit, questionable)
-3. Order (rank, score)
-4. Pages ( any number >= (greater than or equal to) 1 )
+- 1. Search term or better known as 'tag(s)'
+- 2. Rating (safe, explicit, questionable)
+- 3. Order (rank, score)
+- 4. Pages ( any number >= (greater than or equal to) 1 )
 
 Here is an example of a simple query to yandere-dl:
 Search: girls_und_panzer+seifuku
