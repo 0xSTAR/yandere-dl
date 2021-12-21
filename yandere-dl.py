@@ -92,7 +92,7 @@ class Danbooru(object):
         pages = input('Pages: ')
         if str(pages) != '' and int(pages) >1:
             self.pages_of=int(pages)
-        elif int(pages)<=0:
+        elif not str(pages) == '' and int(pages)<=0:
             print(f'pages cannot be of any value <= 0. Got: {str(pages)}. Pages must be any value >= 1')
         if not search == '':
             self.danbooru_page+=search.replace(' ','+')
