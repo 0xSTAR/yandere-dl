@@ -164,7 +164,8 @@ class Danbooru(object):
         self.file_no:int = 0
         self.folder:str = 'danbooru '+str(datetime.date.today())
 
-def init():
+
+if __name__ == '__main__':
     # ansi art? or ascii. i don't really know what to call it.
     print("""
                _________________
@@ -225,9 +226,6 @@ def init():
         print('\n\n')
     else:print('Must supply a site. Exiting . . .')
     return
-
-if __name__ == '__main__':
-    init()
     try:main()
     except NameError:time.sleep(2);sys.exit()
     time.sleep(5)
