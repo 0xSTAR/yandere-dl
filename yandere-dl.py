@@ -221,11 +221,9 @@ if __name__ == '__main__':
                     site.dl()
                     site.update()
                 print('\n\n\n . . . Done! Thank you for using my service... !\n')
-        else: print(f'Error: site not supported. Got: {site_choice}. Exiting . . .');return
-
+        else: print(f'Error: site not supported. Got: {site_choice}. Exiting . . .')
         print('\n\n')
     else:print('Must supply a site. Exiting . . .')
-    return
     try:main()
     except NameError:time.sleep(2);sys.exit()
     time.sleep(5)
