@@ -130,11 +130,9 @@ class Danbooru(object):
                 soup2 = BeautifulSoup(preview.text,'html.parser')
                 for l in soup2.find_all('a'):
                     href_tag = l.get('href')
-                    # support both download and original incase Original is missing
-                    #if href_tag.startswith('https://cdn.donmai.us/original/') and not href_tag[-11:]=='?download=1':
-                    #    self.links.append(href_tag)
-                    if href_tag.startswith('https://cdn.donmai.us/original/') and href_tag[-11:]=='?download=1':
-                        # used to be elif
+                    # Original may not be present always but download always is
+                    if href_tag.startswith('https://cdn.donmai.us/original/') and href_tag[-11:]=='?download=1' and not href_tag[-15].startswith('.zip'):
+                        # dodge GIFs in the format of zips...
                         self.links.append(href_tag.replace('?download=1',''))
         if self.links == []:
             print('No results found . . .');return
