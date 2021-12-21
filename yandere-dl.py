@@ -131,7 +131,7 @@ class Danbooru(object):
                 for l in soup2.find_all('a'):
                     href_tag = l.get('href')
                     # Original may not be present always but download always is
-                    if href_tag.startswith('https://cdn.donmai.us/original/') and href_tag[-11:]=='?download=1' and not href_tag[-15].startswith('.zip'):
+                    if href_tag.startswith('https://cdn.donmai.us/original/') and href_tag[-11:]=='?download=1' and not href_tag[-15:].startswith('.zip'):
                         # dodge GIFs in the format of zips...
                         self.links.append(href_tag.replace('?download=1',''))
         if self.links == []:
