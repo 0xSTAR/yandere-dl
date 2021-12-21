@@ -90,7 +90,7 @@ class Danbooru(object):
         rating = input('Rating: ')
         order = input('Order: ')
         pages = input('Pages: ')
-        if pages != '' and pages >1:
+        if str(pages) != '' and int(pages) >1:
             self.pages_of=int(pages)
         elif pages<=0:
             print(f'pages cannot be of any value <= 0. Got: {str(pages)}. Pages must be any value >= 1')
