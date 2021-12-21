@@ -189,6 +189,7 @@ if __name__ == '__main__':
                 try:os.mkdir(path=site.folder,mode=511,dir_fd=None);print(f'new directory {site.folder} created')
                 except FileExistsError:
                     print(f'Directory {site.folder} already exists. Continuing . . .') # debug
+                site.take_input()
                 site.leave_mark()
                 while site.page <= site.pages_of:
                     if not site.folder.endswith(str(datetime.date.today())):
@@ -208,6 +209,7 @@ if __name__ == '__main__':
                 try:os.mkdir(path=site.folder,mode=511,dir_fd=None);print(f'new directory {site.folder} created')
                 except FileExistsError:
                     print(f'Directory {site.folder} already exists. Continuing . . .') # debug
+                site.take_input()
                 site.leave_mark()
                 while site.page <= site.pages_of:
                     if not site.folder.endswith(str(datetime.date.today())):
