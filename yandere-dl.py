@@ -92,11 +92,12 @@ class Danbooru(object):
         pages = input('Pages: ')
         if str(pages) != '' and int(pages) >1:
             self.pages_of=int(pages)
-        elif pages<=0:
+        elif int(pages)<=0:
             print(f'pages cannot be of any value <= 0. Got: {str(pages)}. Pages must be any value >= 1')
         if not search == '':
-            tokens+=len(search.split(' '))
             self.danbooru_page+=search.replace(' ','+')
+            print(self.danbooru_page)
+            tokens+=len(search.split(' '))
         if rating != '':
             if rating=='e':rating='explicit'
             elif rating=='q':rating='questionable'
