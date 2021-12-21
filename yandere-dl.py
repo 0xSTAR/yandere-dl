@@ -22,7 +22,7 @@ class Yandere(object):
         pages = input('Pages: ') # local
         if not pages == '' and int(pages) >= 1:
             self.pages_of=int(pages)
-        else:
+        elif int(pages) <= 0:
             print(f'page cannot be value: {pages}. only values of \'\'(blank string) and a num>=1 are allowed.')
         if not search == '':
             self.yandere_page += str(search.replace(' ','+'))
@@ -96,7 +96,7 @@ class Danbooru(object):
             print(f'pages cannot be of any value <= 0. Got: {str(pages)}. Pages must be any value >= 1')
         if not search == '':
             self.danbooru_page+=search.replace(' ','+')
-            print(self.danbooru_page)
+            #print(self.danbooru_page)
             tokens+=len(search.split(' '))
         if rating != '':
             if rating=='e':rating='explicit'
@@ -123,13 +123,18 @@ class Danbooru(object):
         soup = BeautifulSoup(r.text,'html.parser')
         for link in soup.find_all('a'):
             preview_link=link.get('href')
-            if preview_link.startswith('https://danbooru.donmai.us/posts/'):
-                preview = requests.get(preview_link)
+            #if preview_link.startswith('https://danbooru.donmai.us/posts/'):
+            # danbooru does some blackmagic wizardry with ids for the images LOL
+            if preview_link.startswith('/posts/'):
+                preview = requests.get('https://danbooru.donmai.us'+preview_link)
                 soup2 = BeautifulSoup(preview.text,'html.parser')
                 for l in soup2.find_all('a'):
                     href_tag = l.get('href')
+                    # support both download and original incase Original is missing
                     if href_tag.startswith('https://cdn.donmai.us/original/') and not href_tag[-11:]=='?download=1':
                         self.links.append(href_tag)
+                    elif href_tag.startswith('https://cdn.donmai.us/original/') and href_tag[-11:]=='?download=1':
+                        self.links.append(href_tag.replace('?download=1',''))
         if self.links == []:
             print('No results found . . .');return
 
