@@ -10,11 +10,22 @@ yande.re
 danbooru
 gelbooru
 
-# EASIEST WAY TO GET YANDERE-DL (FOR WINDOWS USERS)
+# EASIEST WAY TO GET YANDERE-DL
+
+### For Windows Users
 
 For Windows users, the easiest way is to download the [latest executable file from the Releases tab](https://github.com/0xSTAR/yandere-dl/releases/download/v1.0.0/yandere-dl.exe). From there, move the executable file into any directory of your choosing (it is recommended to create a dedicated folder for yandere-dl). Then, double click the executable to open it, and a prompt will appear. Next you must provide a search term, a rating, the order, and the amount of pages you would like (each page is ~40 images). You can leave these blank to have them at their default values. This goes without saying, but press enter afterwards.
 
 To actually use this, make sure to read below, and yes, [take this shortcut to get there faster](https://github.com/0xSTAR/yandere-dl#actual-usage-of-yandere-dl) because the next section is explaining how to use it from source.
+
+### For Linux (and possibly Mac) Users
+
+Download the [latest executable file from the Releases tab]().
+
+```
+sudo cp ~/Downloads/yandere-dl /usr/bin/
+sudo chmod a+rwx yandere-dl
+```
 
 # FROM SOURCE
 
@@ -56,7 +67,7 @@ python build.py
 On Mac or Linux . . .
 ```
 python3 build.py
-chmod +rwx ./dist/yandere-dl
+sudo chmod a+rwx ./dist/yandere-dl
 ```
 If you have any issues. . . Check how to properly install pyinstaller to your machine on Mac or Linux and then run the build.py script again.
 
