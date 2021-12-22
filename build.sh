@@ -10,8 +10,8 @@ sudo cp ~/.local/bin/pyi-archive_viewer /usr/bin/
 sudo cp ~/.local/bin/pyi-grab_version /usr/bin/
 sudo cp ~/.local/bin/pyinstaller /usr/bin/
 
-pyinstaller --icon yandere.ico --onefile yandere.py
+pyinstaller --icon yandere.ico --onefile yandere-dl.py
 
-chmod +rwx ./dist/yandere-dl
+sudo chmod a+rwx ./dist/yandere-dl
 
 echo 'Build has completed. Binary is inside of the dist folder.'
