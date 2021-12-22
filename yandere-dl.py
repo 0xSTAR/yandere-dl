@@ -280,7 +280,7 @@ def main():
              - gelbooru
 
     """)
-    while not not (site != 'yande.re' and not site=='danbooru' and not site=='gelbooru'):
+    while True:
         site = input('Which site would you like to download from? :  ')
         if site=='yande.re':
             site = Yandere()
