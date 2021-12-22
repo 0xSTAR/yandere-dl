@@ -26,8 +26,12 @@ class Yandere(object):
             print(f'page cannot be value: {pages}. only values of \'\'(blank string) and a num>=1 are allowed.')
         if not search == '':
             self.yandere_page += str(search.replace(' ','+'))
-        if rating != '' and rating=='safe' or rating=='explicit'or rating=='questionable':
-            self.yandere_page += '+rating:'+str(rating)
+        if rating != '': #and rating=='safe' or rating=='explicit'or rating=='questionable':
+            if rating=='e':rating='explicit'
+            elif rating=='q':rating='questionable'
+            elif rating=='s': rating='safe'
+            if rating=='explicit' or rating=='questionable' or rating=='safe':
+                self.yandere_page += '+rating:'+str(rating)
         if not order == '' and order=='rank' or order=='score':
             self.yandere_page += '+order:'+str(order)
         return
@@ -82,6 +86,7 @@ class Yandere(object):
         self.pages_of = 1
         self.page = 1
         self.folder = 'yande.re '+str(datetime.date.today())
+        self.name = 'yande.re'
 
 class Danbooru(object):
     def take_input(self):
@@ -168,9 +173,98 @@ class Danbooru(object):
         self.links = []
         self.file_no:int = 0
         self.folder:str = 'danbooru '+str(datetime.date.today())
+        self.name = 'danbooru'
+
+class Gelbooru(object):
+    def take_input(self):
+        #
+        search = input('Search: ')
+        rating = input('Rating: ')
+        sort = input('Sort: ')
+        pages = input('Pages: ')
+        if str(pages) != '' and int(pages) >= 1:
+            self.pages_of = int(pages)
+        elif str(pages) != '':
+            print(f'Pages value must be >= 1. Got: {int(pages)}. Exiting . . .')
+            time.sleep(3)
+            sys.exit()
+        if not str(search) == '':
+            self.link+=str(search).replace(' ','+')
+        if not str(rating) == '':
+            if str(rating) == 'e':
+                rating = 'explicit'
+            elif str(rating) == 'q':
+                rating = 'questionable'
+            elif str(rating) == 's':
+                rating = 'safe'
+
+            if str(rating) == 'explicit' or str(rating) == 'questionable' or str(rating) =='safe':
+                self.link+='+rating:'+rating
+            else:
+                print(f'Invalid rating. Got: {str(rating)}. Must be either explicit, safe, questionable, or their short-hands: e,s,q .')
+                print('Exiting . . .')
+                time.sleep(5)
+                sys.exit()
+
+        if str(sort) != '':
+            if str(sort)=='rank' or str(sort)=='score' or str(sort).startswith('score>=') or str(sort).startswith('score<=') or str(sort).startswith('score>') or str(sort).startswith('score<'):
+                self.link+='+sort:'+sort
+
+        # page id !!
+        self.link+='&pid=0' # page 1, actual page: 0
+
+    def get(self):
+        print('\n\n Fetching page . . .\n')
+        r = requests.get(self.link)
+        soup = BeautifulSoup(r.text,'html.parser')
+        for view in soup.find_all('a'):
+            if view.get('href')[:51]=='https://gelbooru.com/index.php?page=post&s=view&id=':
+                soup2 = BeautifulSoup(requests.get(view.get('href')).text,'html.parser')
+                for link in soup2.find_all('a'):
+                    link_href = link.get('href')
+                    if link_href[:33]=='https://img3.gelbooru.com/images/':
+                        self.links.append(link_href)
+        if self.links == []:
+            print('No results found . . .')
+            return
+
+    def dl(self):
+        print(f'\n\nDownloading page {str(self.page)} of {str(self.pages_of)} . . .\n')
+        for link in self.links:
+            ending = link.split('.')[3]
+            now = datetime.datetime.now()
+            file_name='{} {}.{}.{}.{}.{}'.format(str(datetime.date.today()).replace('-','.'),str(now.hour),str(now.minute),str(now.second),str(now.microsecond),ending)
+            print(f'Downloading image No. {str(self.file_no)}')
+            img = requests.get(link,stream=True)
+            with open('./{}/{}'.format(self.folder,file_name),'wb') as destination:
+                for data in img.iter_content(chunk_size=1024):
+                    destination.write(data)
+                destination.close()
+            self.file_no+=1
+
+    def update(self):
+        self.links = []
+        self.page+=1
+        self.actual_page += 1
+        self.link = self.link.replace('pid={}'.format(str((self.actual_page-1) * 42)),'pid={}'.format(str(self.actual_page*42)))
+
+    def leave_mark(self):
+        with open('./{}/{}'.format(self.folder,'yandere-dl.txt'),'w') as mark:
+            mark.write('downloaded from Gelbooru using yandere-dl v1.1.0: https://github.com/0xSTAR/yandere-dl')
+
+    def __init__(self):
+        self.links = []
+        self.file_no:int = 0
+        self.page:int = 1
+        self.actual_page:int = 0
+        self.pages_of:int = 1
+        self.folder:str = 'gelbooru '+str(datetime.date.today())
+        # base url for listing
+        self.link:str = 'https://gelbooru.com/index.php?page=post&s=list&tags='
+        self.name = 'gelbooru'
 
 
-if __name__ == '__main__':
+def main():
     # ansi art? or ascii. i don't really know what to call it.
     print("""
                _________________
@@ -183,54 +277,43 @@ if __name__ == '__main__':
 
              - yande.re
              - danbooru
+             - gelbooru
 
     """)
-    #sys.stdout.write('Supported sites: yande.re, danbooru\n')
-    site_choice = input('Which site would you like the tool to download from?')
-    if site_choice != '':
-        if site_choice == 'yande.re':
-            def main():
-                site = Yandere()
-                try:os.mkdir(path=site.folder,mode=511,dir_fd=None);print(f'new directory {site.folder} created')
-                except FileExistsError:
-                    print(f'Directory {site.folder} already exists. Continuing . . .') # debug
-                site.take_input()
-                site.leave_mark()
-                while site.page <= site.pages_of:
-                    if not site.folder.endswith(str(datetime.date.today())):
-                        # for if people run this thing overnight
-                        print('A new day is upon us!')
-                        site.folder = 'yande.re '+str(datetime.date.today())
-                        try:os.mkdir(path=site.folder,mode=511,dir_fd=None)
-                        except FileExistsError:
-                            pass
-                    site.get()
-                    site.dl()
-                    site.update()
-                print('\n\n\n . . . Done! Thank you for using my service... !\n')
-        elif site_choice == 'danbooru':
-            def main():
-                site = Danbooru()
-                try:os.mkdir(path=site.folder,mode=511,dir_fd=None);print(f'new directory {site.folder} created')
-                except FileExistsError:
-                    print(f'Directory {site.folder} already exists. Continuing . . .') # debug
-                site.take_input()
-                site.leave_mark()
-                while site.page <= site.pages_of:
-                    if not site.folder.endswith(str(datetime.date.today())):
-                        # for if people run this thing overnight
-                        print('A new day is upon us!')
-                        site.folder = 'danbooru '+str(datetime.date.today())
-                        try:os.mkdir(path=site.folder,mode=511,dir_fd=None)
-                        except FileExistsError:
-                            pass
-                    site.get()
-                    site.dl()
-                    site.update()
-                print('\n\n\n . . . Done! Thank you for using my service... !\n')
-        else: print(f'Error: site not supported. Got: {site_choice}. Exiting . . .')
-        print('\n\n')
-    else:print('Must supply a site. Exiting . . .')
+    while not not (site != 'yande.re' and not site=='danbooru' and not site=='gelbooru'):
+        site = input('Which site would you like to download from? :  ')
+        if site=='yande.re':
+            site = Yandere()
+            break
+        elif site=='danbooru':
+            site = Danbooru()
+            break
+        elif site=='gelbooru':
+            site = Gelbooru()
+            break
+        print(f'\n\n Must be either \'yande.re\' or \'danbooru\', or \'gelbooru\'.\n\n')
+
+    try:os.mkdir(path=site.folder,mode=511,dir_fd=None);print(f'New directory: \'{site.folder}\' created')
+    except FileExistsError:
+        #print(f'Directory {site.folder} already exists. Continuing . . .') # debug
+        pass
+    site.take_input()
+    site.leave_mark()
+    while site.page <= site.pages_of:
+        if not site.folder.endswith(str(datetime.date.today())):
+            # for if people run this thing overnight
+            print('A new day is upon us!')
+            site.folder = site.name+' '+str(datetime.date.today())
+            try:os.mkdir(path=site.folder,mode=511,dir_fd=None);print(f'New directory: \'{site.folder}\' created.')
+            except FileExistsError:
+                pass
+        site.get()
+        site.dl()
+        site.update()
+    print('\n\n\n . . . Done! Thank you for using my service... !\n')
+
+
+if __name__ == '__main__':
     try:main()
     except NameError:time.sleep(2);sys.exit()
     time.sleep(5)

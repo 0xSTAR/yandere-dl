@@ -14,10 +14,10 @@ if __name__ == '__main__':
     #    subprocess.check_call([sys.executable,'-m','pip','install','-U',mod],
     #                                    stdout=void,stderr=void)
     #    #except CalledProcessError:
-    
+
     def ins(virtenv:bool = True):
-	void = open(os.devnull,'w')
-	subprocess.check_call([sys.executable,'-m','pip','install','-r','requirements.txt'])
+    	#void = open(os.devnull,'w')
+    	subprocess.check_call([sys.executable,'-m','pip','install','-r','requirements.txt'])
 
     TARGET = './yandere-dl.py'
     def build(onefile:bool = True):
@@ -26,7 +26,7 @@ if __name__ == '__main__':
             return
         subprocess.check_call(['pyinstaller','--icon','yandere.ico',TARGET])
         return
-    
+
     def main():
     	#ins(VENV)
         ins()
