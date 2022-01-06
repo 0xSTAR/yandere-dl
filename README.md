@@ -4,12 +4,12 @@ currently just a image board downloader that provides you the highest quality sa
 
 # SUPPORTED SITES
 
-DISCLAIMER: Visiting any of these sites will result in exposure to adult content. This tool is meant for those of age 18 and older.
+DISCLAIMER: Visiting any of these sites will result in exposure to adult content. This tool is intended for responsible adults.
 
-[yande.re](https://yande.re/)
-[danbooru](https://danbooru.donmai.us)
-[gelbooru](https://gelbooru.com/)
-[zerochan](https://www.zerochan.net/)
+- yande.re
+- danbooru
+- gelbooru
+- zerochan
 
 # EASIEST WAY TO GET YANDERE-DL
 
@@ -29,6 +29,8 @@ sudo chmod a+rwx yandere-dl
 ```
 
 # FROM SOURCE
+
+warning: WOAH!!! wait up a minute! This section is out of date and will be brought to the new version in the repo when the new release is out. It is recommended to get the source from the Releases tab for the time being.
 
 Note: Getting the source from the repository may not always result in a working version of yandere-dl, so it is advisable to get a source release from the Releases tab if cloning the repository results in failure of the application.
 
@@ -88,7 +90,24 @@ python3 yandere-dl.py
 
 # ACTUAL USAGE OF YANDERE-DL
 
-This script downloads images specifically available on the [yande.re](https://yande.re/), [danbooru](https://danbooru.donmai.us/) and [gelbooru](https://gelbooru.com/) image boards.
+This script downloads images specifically available on the yande.re, danbooru, gelbooru, and zerochan image boards, as well as nhentai.
+
+## SELECTING THE SITE
+
+When yandere-dl is ran, it will ask which site you want. 
+The selection is as follows:
+
+- yande.re
+- danbooru
+- gelbooru
+- zerochan
+- nhentai
+
+You must type in the name of it exactly, and press enter to move to the next phase.
+
+The next phase now will depend on what type of site you selected. If you chose yande.re or danbooru or gelbooru or zerochan, it will be an imageboard. If you chose nhentai, go to the nhentai section to read about how to use it, it is quite straightforward.
+
+### FOR IMAGE BOARDS . . .
 
 So, all tags used are specific to that website. I suggest you visit it and get used to the tags and conventions if you are not already (even though this script is most likely to be used by people who already use yande.re and want an easier way of saving the images offline)
 
@@ -123,6 +142,10 @@ As you may notice, all of these values can be left blank to be set to their defa
 
 
 It is highly recommended to continue reading to find out more effective ways of utilizing yandere-dl. Make sure to check anytime you obtain a new release, as the methods of using yandere-dl may have been vastly improved, while deprecating the old, less user-friendly things.
+
+### FOR NHENTAI . . .
+
+You will be prompted for 'numbers'. These are a sauce code, which uniquely identify a piece of work on the platform. When supplied, it will routinely fetch and download the entire work into a folder labeled 'nhentai (sauce_code)' for you. How convenient!
 
 # USAGE CONTINUED...
 
