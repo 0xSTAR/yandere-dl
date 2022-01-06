@@ -13,7 +13,7 @@ is_64bit = True if sys.maxsize > 2**32 else False # 2**32 same as pow(2,32)
 
 is_cpython = True if platform.python_implementation() == 'CPython' else False
 PYTHON_VERSION_TUPLE = platform.python_version_tuple() if is_cypthon else sys.exit('Must be using CPython ( 3.6 <= version < 3.11 )')
-LEGAL_PYTHON_VERSION = True if PYTHON_VERSION_TUPLE[0]=='3' and PYTHON_VERSION_TUPLE[1] >= 6 and PYTHON_VERSION_TUPLE < 11 else False
+LEGAL_PYTHON_VERSION = True if PYTHON_VERSION_TUPLE[0]=='3' and PYTHON_VERSION_TUPLE[1] >= 6 and PYTHON_VERSION_TUPLE[1] < 11 else False
 if not LEGAL_PYTHON_VERSION:print('Must be a version of CPython >= 3.6 and < 3.11'); sys.exit()
 
 CREATED_DISTRIBUTABLE:str = ''
