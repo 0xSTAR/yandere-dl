@@ -6,9 +6,10 @@ currently just a image board downloader that provides you the highest quality sa
 
 DISCLAIMER: Visiting any of these sites will result in exposure to adult content. This tool is meant for those of age 18 and older.
 
-- [yande.re](https://yande.re/)
-- [danbooru](https://danbooru.donmai.us)
-- [gelbooru](https://gelbooru.com/)
+[yande.re](https://yande.re/)
+[danbooru](https://danbooru.donmai.us)
+[gelbooru](https://gelbooru.com/)
+[zerochan](https://www.zerochan.net/)
 
 # EASIEST WAY TO GET YANDERE-DL
 
