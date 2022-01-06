@@ -27,10 +27,10 @@ DIST_PATH = os.getcwd()+'/dist_bin'
 WORK_PATH = os.getcwd()+'/build_tmp'
 
 def ins():
-    current_dir = os.getcwd()
+    #current_dir = os.getcwd()
 
-    venv_dir = '.venv' if PLATFORM=='Linux' or PLATFORM=='Darwin' else 'venv'
-    if PLATFORM=='Linux' or PLATFORM=='DARWIN' and os.path.isdir('.venv'):
+    #venv_dir = '.venv' if PLATFORM=='Linux' or PLATFORM=='Darwin' else 'venv'
+    """if PLATFORM=='Linux' or PLATFORM=='DARWIN' and os.path.isdir('.venv'):
         subprocess.call(['rm','-R',current_dir+'/.venv'])
     elif os.path.isdir('venv'):
         subprocess.call(['rmdir',current_dir+'/venv'])
@@ -39,14 +39,17 @@ def ins():
     activate = 'activate.bat' if PLATFORM=='Windows' else 'activate'
 
     subprocess.call([sys.executable,'-m','venv',venv_dir])
-    subprocess.call(['{}/{}/{}/{}'.format(current_dir,venv_dir,script_dir,activate)])
+    subprocess.call(['{}/{}/{}/{}'.format(current_dir,venv_dir,script_dir,activate)])"""
 
     subprocess.call([sys.executable,'-m','pip','install','-r','requirements.txt'])
+
+    #import PyInstaller.__main__
 
     # subprocess.call(['deactivate'])
     return
 
 def darwin32(mac_info):
+    import PyInstaller.__main__
     target_arch = 'universal2' if mac_info.machine=='x86' else sys.exit(f"""Architecture: {mac_info.machine} not recognized . . .
     Please report to Issues on the GitHub page what architecture this message states.
     A screenshot would be helpful.""")
@@ -56,80 +59,85 @@ def darwin32(mac_info):
             TARGET,
             '-y','--clean',
             '-F','-c',
-            '--icon yandere.ico',
-            '--target-arch {}'.format(target_arch),
-            '-n yandere-dl{}'.format(dist_type),
+            '--icon=yandere.ico',
+            '--target-arch={}'.format(target_arch),
+            '-n=yandere-dl{}'.format(dist_type),
             '--noupx',
-            '--distpath {}'.format(DIST_PATH),
-            '--workpath {}'.format(WORK_PATH)
+            #'--distpath={}'.format(DIST_PATH),
+            #'--workpath {}'.format(WORK_PATH)
         ])
     except:
+        dist_type = '_macOS_generic'
         PyInstaller.__main__.run([
             TARGET,
             '-y','--clean',
             '-F','-c',
-            '--icon yandere.ico',
-            '-n yandere-dl{}'.format('_macOS_generic'),
+            '--icon=yandere.ico',
+            '-n=yandere-dl{}'.format('_macOS_generic'),
             '--noupx',
-            '--distpath {}'.format(DIST_PATH),
-            '--workpath {}'.format(WORK_PATH)
+            #'--distpath {}'.format(DIST_PATH),
+            #'--workpath {}'.format(WORK_PATH)
         ])
     global CREATED_DISTRIBUTABLE
     CREATED_DISTRIBUTABLE = 'yandere-dl{}'.format(dist_type)
     return
 
 def darwin64(mac_info):
+    import PyInstaller.__main__
     target_arch = 'arm64' if mac_info.machine=='arm64' else 'x86_64'
     dist_type = '_macOS_arm64' if arch=='arm64' else '_macOS_x86_64'# if arch=='x86_64'
     PyInstaller.__main__.run([
         TARGET,
         '-y','--clean',
         '-F','-c',
-        '--icon yandere.ico',
-        '--target-arch {}'.format(target_arch),
-        '-n yandere-dl{}'.format(dist_type),
+        '--icon=yandere.ico',
+        '--target-arch={}'.format(target_arch),
+        '-n=yandere-dl{}'.format(dist_type),
         '--noupx',
-        '--distpath {}'.format(DIST_PATH),
-        '--workpath {}'.format(WORK_PATH)
+        #'--distpath {}'.format(DIST_PATH),
+        #'--workpath {}'.format(WORK_PATH)
     ])
     global CREATED_DISTRIBUTABLE
     CREATED_DISTRIBUTABLE = 'yandere-dl{}'.format(dist_type)
     return
 
 def win32_64():
+    import PyInstaller.__main__
     arch = '_win64' if is_64bit else '_win32'
     PyInstaller.__main__.run([
         TARGET,
         '-y','--clean',
         '-F','-c',
-        '--icon yandere.ico',
-        '-n yandere-dl{}'.format(arch),
+        '--icon=yandere.ico',
+        '-n=yandere-dl',
         '--noupx',
-        '--distpath {}'.format(DIST_PATH),
-        '--workpath {}'.format(BUILD_PATH)
+        #'--distpath={}'.format(DIST_PATH),
+        #'--workpath={}'.format(BUILD_PATH)
     ])
     global CREATED_DISTRIBUTABLE
-    CREATED_DISTRIBUTABLE = 'yandere-dl{}'.format('yandere-dl{}'.format(arch+'.exe'))
+    CREATED_DISTRIBUTABLE = 'yandere-dl.exe'
     return
 
 def linux32_64():
+    import PyInstaller.__main__
     arch = '_linux64' if is_64bit else '_linux32'
     PyInstaller.__main__.run([
         TARGET,
         '-y','--clean',
         '-F',
-        '--icon yandere.ico',
-        '-n yandere-dl{}'.format(arch),
+        '--icon=yandere.ico',
+        #'-n=yandere-dl{}'.format(arch),
+        '-n=yandere-dl',
         '--noupx',
-        '--distpath {}'.format(DIST_PATH),
-        '--workpath {}'.format(BUILD_PATH)
+        #'--distpath {}'.format(DIST_PATH),
+        #'--workpath {}'.format(BUILD_PATH)
     ])
     global CREATED_DISTRIBUTABLE
-    CREATED_DISTRIBUTABLE = 'yandere-dl{}'.format('yandere-dl{}'.format(arch))
+    CREATED_DISTRIBUTABLE = 'yandere-dl'
     return
 
 def build():
-    import PyInstaller.__main__
+    #import PyInstaller.__main__
 
     if PLATFORM=='Windows':win32_64()
     elif PLATFORM=='Linux':linux32_64()
@@ -138,9 +146,9 @@ def build():
     return
 
 def aftermath():
-    subprocess.call(['deactivate'])
-    if os.path.isfile(DIST_PATH+'/'+CREATED_DISTRIBUTABLE) and PLATFORM=='Darwin' or PLATFORM=='Linux':
-        subprocess.call(['sudo','chmod','a+rwx',DIST_PATH+'/'+CREATED_DISTRIBUTABLE])
+    #subprocess.call(['deactivate'])
+    """if os.path.isfile('./dist/'+CREATED_DISTRIBUTABLE) and PLATFORM=='Darwin' or PLATFORM=='Linux':
+        subprocess.call(['sudo','chmod','a+rwx','./dist/'+CREATED_DISTRIBUTABLE])"""
     return
 
 def main():
