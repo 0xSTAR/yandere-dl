@@ -5,8 +5,12 @@ import subprocess
 import platform
 
 PLATFORM = platform.system()
-if not PLATFORM == 'Windows' or not PLATFORM=='Linux' or not PLATFORM=='Darwin':
-    print(f'{PLATFORM} is not supported by bootstrapper')
+#if not PLATFORM == 'Windows' or not PLATFORM=='Linux' or not PLATFORM=='Darwin':
+#    print(f'{PLATFORM} is not supported by bootstrapper')
+if not PLATFORM=='Windows':
+    if not PLATFORM=='Linux':
+        if not PLATFORM=='Darwin':
+            print(f'{PLATFORM} is not supported by bootstrapper')
 
 is_64bit = True if sys.maxsize > 2**32 else False # 2**32 same as pow(2,32)
 # ^^^^ for those mac arm64 and mac x86_64 people

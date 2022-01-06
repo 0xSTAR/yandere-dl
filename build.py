@@ -9,9 +9,9 @@ os = platform.system() if platform.system()=='Windows' or platform.system()=='Li
 is_64=True if sys.maxsize > 2**32 else False
 is_cpython = True if platform.python_implementation=='CPython' else False
 py_ver=platform.python_version_tuple()
-is_legal_python=True if is_cypthon and py_ver[0]==3 and py_ver[1]>= 6 and py_ver[2] < 11 else sys.exit('Must be using CPython version >= 3.6 and < 3.11')
+is_legal_python=True if is_cpython and int(py_ver[0])==3 and int(py_ver[1])>= 6 and int(py_ver[1]) < 11 else sys.exit('Must be using CPython version >= 3.6 and < 3.11')
 
-TARGET = './src/__main__.py'
+TARGET = 'src/__main__.py'
 
 def main():
     if os=='Darwin':
@@ -63,7 +63,7 @@ def main():
             return str('yandere-dl{}'.format(dist_type))
 
     elif os=='Linux': # Linux or Windows
-        arch = '_linux64' if is_64bit else '_linux32'
+        arch = '_linux64' if is_64 else '_linux32'
         PyInstaller.__main__.run([
             TARGET,
             '-y','--clean',
@@ -77,7 +77,7 @@ def main():
         return str('yandere-dl{}'.format(arch))
 
     elif os=='Windows':
-        arch = '_win64' if is_64bit else '_win32'
+        arch = '_win64' if is_64 else '_win32'
         PyInstaller.__main__.run([
             TARGET,
             '-y','--clean',

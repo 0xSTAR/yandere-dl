@@ -122,7 +122,7 @@ class zerochan(object):
         for l in self.links:
             ending = l.split('.')[len(l.split('.'))-1]
             now = datetime.datetime.now()
-            file_name = str(datetime.datetime.today()).replace('-','.')+' '+str(now.hour)+'.'+str(now.minute)+'.'+str(now.second)+'.'+str(now.microsecond)+'.'+ending
+            file_name = str(datetime.date.today()).replace('-','.')+' '+str(now.hour)+'.'+str(now.minute)+'.'+str(now.second)+'.'+str(now.microsecond)+'.'+ending
             img = requests.get(l,stream=True)
             with open('./{}/{}'.format(self.folder,file_name),'wb') as destination:
                 for data in img.iter_content(chunk_size=1024):
